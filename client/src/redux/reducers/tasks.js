@@ -1,4 +1,4 @@
-import {ADD_TASK, DELETE_TASK, EDIT_TASK , COMPLETE_TASK,SAVE_TASK} from '../actions/action-types';
+import {ADD_TASK, ADD_ONETASK, DELETE_TASK, EDIT_TASK , COMPLETE_TASK, SAVE_TASK} from '../actions/action-types';
 
 
 let i = 2;
@@ -21,6 +21,16 @@ export default (state=[], action) => {  // reducer
         //     editFlg: false,
         //   }
         ;
+
+    case ADD_ONETASK:
+    return [...state,
+            { 
+                id: getId(),
+                title: action.title,
+                status: false,
+                editFlg: false,
+              }
+          ];
 
     case DELETE_TASK:
       return state.filter( (task) =>  task.id !== action.id);

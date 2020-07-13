@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TaskItem from '../TaskItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { addDispatchTask, editDispatchTask, deleteDispatchTask, completeDispatchTask, saveDispatchTask} from '../redux/actions/tasks'; 
+import { addDispatchTask, addDispatchOneTask, editDispatchTask, deleteDispatchTask, completeDispatchTask, saveDispatchTask} from '../redux/actions/tasks'; 
 import { loadingStarted, loadingFailed, loadingSuccessful } from '../redux/actions/loading';
 import Loading from '../Loading'
 
@@ -41,7 +41,7 @@ function Todolist() {
 
   function addTask(event) {
     event.preventDefault();
-    dispatch(addDispatchTask(taskName));
+    dispatch(addDispatchOneTask(taskName));
     setTaskName('');
   }
 

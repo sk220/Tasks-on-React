@@ -1,4 +1,4 @@
-import { ADD_TASK, DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK } from './action-types';
+import { ADD_TASK, ADD_ONETASK,  DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK } from './action-types';
 
 
 
@@ -9,6 +9,14 @@ export function addDispatchTask(data) {
     payload: data,
   }
 }
+
+export function addDispatchOneTask(title) {
+  return {
+    type: ADD_ONETASK,
+    title
+  }
+}
+
 export function deleteDispatchTask(id) {
   return {
     type: DELETE_TASK,
