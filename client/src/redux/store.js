@@ -1,7 +1,9 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import taskReducer from './reducers/tasks';
 import loadingReducer from './reducers/loading';
+// thunk 
+import reduxThunk from 'redux-thunk';
 
 import tasks from './reducers/tasks';
 
@@ -11,6 +13,7 @@ import tasks from './reducers/tasks';
 //   return i;
 // }
 
+// формат state: 
 // const initial = {
 //   tasks: [
 //           {
@@ -33,8 +36,10 @@ import tasks from './reducers/tasks';
     // }
 // }
 
-const localStorageState = window.localStorage.getItem('state');
-const initialState =  localStorageState ? JSON.parse(localStorageState) : undefined ; // чтобы брать инфу из локалсторадж всегда 
+// const localStorageState = window.localStorage.getItem('state');
+// const initialState =  localStorageState ? JSON.parse(localStorageState) : undefined ; // чтобы брать инфу из локалсторадж всегда 
+
+const initialState = undefined;
 
 const store = createStore(
   combineReducers({
@@ -43,7 +48,9 @@ const store = createStore(
   }),
   // taskReducer,
   initialState,
-  composeWithDevTools(),
+  composeWithDevTools(
+    applyMiddleware(reduxThunk),
+  ),
 );
 
 store.subscribe( ()=> {

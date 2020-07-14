@@ -1,4 +1,4 @@
-import {ADD_TASK, ADD_ONETASK, DELETE_TASK, EDIT_TASK , COMPLETE_TASK, SAVE_TASK} from '../actions/action-types';
+import {ADD_TASK, ADD_ONETASK, DELETE_TASK, EDIT_TASK , COMPLETE_TASK, SAVE_TASK , FAILED_TASK , FAILED_ONETASK} from '../actions/action-types';
 
 
 let i = 2;
@@ -8,36 +8,43 @@ export function getId() {
 }
 
 export default (state=[], action) => {  // reducer
-  switch (action.type) {
 
+  switch (action.type) {
     case ADD_TASK:
       const arr = [...state];
-      action.payload.forEach( (task) => arr.push(task) );
+      action.payload.forEach( (task) => arr.push({ _id: task._id,title: task.title, status: task.status}) );
       return arr;
-        //  { 
-        //     title: action.title,
-        //     id: getId(),
-        //     status: false,
-        //     editFlg: false,
-        //   }
-        ;
 
     case ADD_ONETASK:
-    return [...state,
-            { 
-                id: getId(),
-                title: action.title,
-                status: false,
-                editFlg: false,
-              }
-          ];
+      const {_id, title, status} = action.payload;
+      return [...state, 
+        {_id, title, status }];
+    // return [...state,
+    //         { 
+    //             id: getId(),
+    //             title: action.title,
+    //             status: false,
+    //             editFlg: false,
+    //           }
+    //       ];
+
+    case FAILED_ONETASK:
+      return [ ...state, 
+        {
+          _id: action.id,
+          type: 'FAILED',
+          errorMessage: action.err,
+          errorFlg: true,
+          step: action.step,
+        }
+      ];
 
     case DELETE_TASK:
-      return state.filter( (task) =>  task.id !== action.id);
+      return state.filter( (task) =>  task._id !== action.id);
 
     case EDIT_TASK:
       return ( state.map( (task) => {
-          if (task.id === action.id) {
+          if (task._id === action.id) {
             return {
               ...task,
               editFlg: !task.editFlg,
@@ -48,7 +55,7 @@ export default (state=[], action) => {  // reducer
 
     case SAVE_TASK:
       return ( state.map( (task) => {
-          if (task.id === action.id) {
+          if (task._id === action.id) {
               return {
                 ...task,
                 title: action.title,
@@ -61,14 +68,33 @@ export default (state=[], action) => {  // reducer
         
     case COMPLETE_TASK:
       return ( state.map( (task) => {
-          if (task.id === action.id) {
+          if (task._id === action.id) {
             return {
               ...task,
-              status: !task.status,
+              status: action.status,
             }
           } 
           return task;
         }));
+
+
+
+
+
+// обработка ошибки для action:  DELETE_TASK, EDIT_TASK, SAVE_TASK,  COMPLETE_TASK по id таска
+      case FAILED_TASK:
+        return ( state.map( (task) => {
+          if (task._id === action.id) {
+            return {
+              ...task,
+              errorFlg: true,
+              errorStep: action.step,
+              errorMessage: action.err,
+            }
+          } 
+          else return task;
+        }));
+  
 
     default:
       return state;

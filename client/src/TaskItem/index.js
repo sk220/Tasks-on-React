@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 
-function TaskItem({ title, id, status, funcDelete, completeTask, editTask, editFlg, saveTask }) {
+function TaskItem({ title, _id, status, funcDelete, completeTask, editTask, editFlg, saveTask }) {
   
   const [newTitle, setNewTitle] = useState(title);
 
@@ -13,20 +13,21 @@ function TaskItem({ title, id, status, funcDelete, completeTask, editTask, editF
   }
 
   function deleteTask() {
-    funcDelete(id);
+    funcDelete(_id);
   }
 
   function checkTask() {
-    completeTask(id);
+    const newStatus = !status;
+    completeTask(_id, newStatus);
   }
 
   function editTaskForm() {
-    editTask(id);
+    editTask(_id);
   }
 
   function saveTaskForm(event) {
     event.preventDefault();
-    saveTask(id, newTitle);
+    saveTask(_id, newTitle);
   }
 
   return (
@@ -48,8 +49,8 @@ function TaskItem({ title, id, status, funcDelete, completeTask, editTask, editF
               <button type="submit">Сохранить</button>
             </form>
           }
-          {status && <div style={{ "textDecoration": "line-through" }} > Название: <strong>{title} </strong>, id: {id} </div>}
-          {!status && <div style={{ "textDecoration": "none" }} > Название: <strong>{title} </strong>, id: {id} </div>}
+          {status && <div style={{ "textDecoration": "line-through" }} > Название: <strong>{title} </strong>, _id: {_id} </div>}
+          {!status && <div style={{ "textDecoration": "none" }} > Название: <strong>{title} </strong>, _id: {_id} </div>}
 
           <button type="button" onClick={deleteTask}>Удалить</button>
           <button type="button" onClick={editTaskForm}>Редактировать</button>
