@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017/tasks', {
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}));
 
 
 
@@ -27,7 +27,7 @@ app.get('/api/tasks', (req, res) => {
       // }
       res.json( await Task.find())
     },
-    1500
+    500
   );
 
 });
@@ -71,7 +71,7 @@ app.patch('/api/task/edit/:id', async (req,res) => {
   try {
     const task = await Task.findByIdAndUpdate(id, {title: newTitle, status: newStatus}, {omitUndefined: true});
     // const result = await task.save();
-    res.json(task);
+    res.json(task);// возвращается старый объект!!
   }
   catch(err) {
     console.log(err, err.message);

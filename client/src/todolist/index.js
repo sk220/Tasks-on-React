@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import TaskItem from '../TaskItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { addDispatchTask, addDispatchOneTask, editDispatchTask, deleteDispatchTask, completeDispatchTask, saveDispatchTask ,failedOneTask,load ,add } from '../redux/actions/tasks'; 
+import { addDispatchTask, addDispatchOneTask, editDispatchTask, deleteDispatchTask, completeDispatchTask, saveDispatchTask ,failedOneTask,load ,add, callSaveTask } from '../redux/actions/tasks'; 
 import { loadingStarted, loadingFailed, loadingSuccessful } from '../redux/actions/loading';
-import Loading from '../Loading'
+import Loading from '../Loading';
+
+//saga
 
 function Todolist() {
 
@@ -90,13 +92,10 @@ function Todolist() {
       console.log("error!: ", err);
       dispatch(failedOneTask(id, err, 'deleteTask'));
     }
-
-    dispatch(deleteDispatchTask(id));
   }
 
   async function completeTask(id, status) {
-    console.log(id, status);
-
+    // console.log(id, status);
     try {
       const response  = await fetch (`/api/task/edit/${id}`, {
         method: 'PATCH',
@@ -122,27 +121,33 @@ function Todolist() {
   }
 
 
-  async function saveTask(id, newTitle) {
-    console.log(newTitle);
-    try {
-      const response  = await fetch (`/api/task/edit/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newTitle: `${newTitle}`,
-        })
-      });
-      debugger;
-      const json = await response.json(); //? как отправить диспатч после получения результата или так ок?
-      dispatch(saveDispatchTask(id, newTitle));
-    }
-    catch(err) {
-      console.log("error!: ", err);
-      dispatch(failedOneTask(id, err, 'editTask'));
-    }
+  // async function saveTask(id, newTitle) {
+  //   console.log(newTitle);
+  //   try {
+  //     const response  = await fetch (`/api/task/edit/${id}`, {
+  //       method: 'PATCH',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         newTitle: `${newTitle}`,
+  //       })
+  //     });
+  //     // debugger;
+  //     const json = await response.json(); //? как отправить диспатч после получения результата или так ок?
+  //     dispatch(saveDispatchTask(id, newTitle));
+  //   }
+  //   catch(err) {
+  //     console.log("error!: ", err);
+  //     dispatch(failedOneTask(id, err, 'editTask'));
+  //   }
+  // }
+
+  //for SAGA
+  function saveTask(id, newTitle) {
+    dispatch(callSaveTask(id, newTitle));
   }
+
 
   return (
     <>

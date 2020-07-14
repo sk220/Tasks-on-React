@@ -5,9 +5,9 @@ export const DELETE_TASK =  'DELETE_TASK';
 export const EDIT_TASK =  'EDIT_TASK';
 export const COMPLETE_TASK =  'COMPLETE_TASK';
 export const SAVE_TASK =  'SAVE_TASK';
-export const FAILED_TASK = 'FAILED_TASK'
-export const FAILED_ONETASK = 'FAILED_ONETASK'
-
+export const FAILED_TASK = 'FAILED_TASK';
+export const FAILED_ONETASK = 'FAILED_ONETASK';
+export const CALL_SAVE_TASK  = 'CALL_SAVE_TASK';
 
 // loading
 export const LOADING_STARTED =  'LOADING_STARTED';

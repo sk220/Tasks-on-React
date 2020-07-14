@@ -1,4 +1,4 @@
-import { ADD_TASK, ADD_ONETASK,  DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK, FAILED_TASK , FAILED_ONETASK} from './action-types';
+import { ADD_TASK, ADD_ONETASK,  DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK, FAILED_TASK , FAILED_ONETASK, CALL_SAVE_TASK} from './action-types';
 import { loadingFailed, loadingSuccessful} from  './loading'
 
 
@@ -65,6 +65,7 @@ export function failedOneTask(id, err, step) {
   }
 }
 
+// for thunk
 export function load() {
   return async (dispatch) => {
     try {
@@ -79,6 +80,7 @@ export function load() {
   }
 } 
 
+// for thunk
 export function add(taskName) {
   return async(dispatch) =>  {
     try {
@@ -99,5 +101,15 @@ export function add(taskName) {
       // error: concat(err.status, ': ', err.message)
       dispatch(failedOneTask(err, 'addOneTask'));
     }
+  }
+}
+
+
+// action creator for SAGA
+export function callSaveTask(id , title) {
+  return {
+    type: CALL_SAVE_TASK,
+    id,
+    title, 
   }
 }

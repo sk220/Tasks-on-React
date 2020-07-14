@@ -2,10 +2,19 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import taskReducer from './reducers/tasks';
 import loadingReducer from './reducers/loading';
+import tasks from './reducers/tasks';
 // thunk 
 import reduxThunk from 'redux-thunk';
 
-import tasks from './reducers/tasks';
+//для SAGA
+import reduxSaga from 'redux-saga';
+import { all } from 'redux-saga/effects'
+import taskSaga from './taskSaga';
+// import { all } from 'bluebird';
+
+const  sagaMiddleware = reduxSaga();
+// end SAGA
+
 
 // let i = 0;
 // export function getId() {
@@ -49,8 +58,22 @@ const store = createStore(
   // taskReducer,
   initialState,
   composeWithDevTools(
-    applyMiddleware(reduxThunk),
+    applyMiddleware(
+      reduxThunk,  // <- Thunk
+      sagaMiddleware, // <- SAGA
+      ),
   ),
+);
+
+// run saga middleware  for listen  be listen all action and dispatch them
+sagaMiddleware.run(
+  function* () {
+    yield all(
+      [
+        taskSaga()
+      ]
+    )
+  }
 );
 
 store.subscribe( ()=> {
