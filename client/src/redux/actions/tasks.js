@@ -1,4 +1,4 @@
-import { ADD_TASK, ADD_ONETASK,  DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK, FAILED_TASK , FAILED_ONETASK, CALL_SAVE_TASK} from './action-types';
+import { ADD_TASK, ADD_ONETASK,  DELETE_TASK, EDIT_TASK, COMPLETE_TASK, SAVE_TASK, FAILED_TASK , FAILED_ONETASK, CALL_SAVE_TASK, SET_VIEW_MODE} from './action-types';
 import { loadingFailed, loadingSuccessful} from  './loading'
 
 
@@ -30,10 +30,11 @@ export function editDispatchTask(id) {
   }
 }
 
-export function saveDispatchTask(id , title) {
+export function saveDispatchTask(id , title, description) {
   return {
     type: SAVE_TASK,
     title,
+    description,
     id,
   }
 }
@@ -65,6 +66,7 @@ export function failedOneTask(id, err, step) {
   }
 }
 
+
 // for thunk
 export function load() {
   return async (dispatch) => {
@@ -81,7 +83,7 @@ export function load() {
 } 
 
 // for thunk
-export function add(taskName) {
+export function add(taskName, taskDescription) {
   return async(dispatch) =>  {
     try {
       const response = await fetch('/api/task', {
@@ -91,10 +93,13 @@ export function add(taskName) {
         },
         body: JSON.stringify( {
           title: taskName,
+          status: 'open',
+          description: taskDescription,
         })
       });
 
       const json = await response.json();
+      console.log('json', json);
       dispatch(addDispatchOneTask(json));
     } 
     catch (err) {
@@ -106,10 +111,11 @@ export function add(taskName) {
 
 
 // action creator for SAGA
-export function callSaveTask(id , title) {
+export function callSaveTask(id , title, description) {
   return {
     type: CALL_SAVE_TASK,
     id,
     title, 
+    description,
   }
 }

@@ -8,9 +8,11 @@ export const SAVE_TASK =  'SAVE_TASK';
 export const FAILED_TASK = 'FAILED_TASK';
 export const FAILED_ONETASK = 'FAILED_ONETASK';
 export const CALL_SAVE_TASK  = 'CALL_SAVE_TASK';
+export const SET_VIEW_MODE = 'SET_VIEW_MODE';
 
 // loading
 export const LOADING_STARTED =  'LOADING_STARTED';
 export const LOADING_FAILED =  'LOADING_FAILED';
 export const LOADING_SUCCESFUL =  'LOADING_SUCCESFUL';
+
 

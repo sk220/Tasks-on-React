@@ -1,17 +1,17 @@
 import React from 'react';
-import Todolist from '../src/todolist';
+import NavTask from '../src/components/NavTask';
+import TaskList from '../src/components/TaskList';
+import Footer from '../src/components/Footer';
+
 import './App.css'
+import 'bulma/css/bulma.css'
 
 function App() {
   return (
     <>
-      <div>
-        < Todolist />
-      </div>
-
-      <footer>
-        <p>Created in 2020 by me</p>
-      </footer>
+      < NavTask />
+      < TaskList />
+      < Footer />
     </>
   );
 }

@@ -1,32 +1,17 @@
 import {ADD_TASK, ADD_ONETASK, DELETE_TASK, EDIT_TASK , COMPLETE_TASK, SAVE_TASK , FAILED_TASK , FAILED_ONETASK} from '../actions/action-types';
 
-
-let i = 2;
-export function getId() {
-  i += 1;
-  return i;
-}
-
 export default (state=[], action) => {  // reducer
 
   switch (action.type) {
     case ADD_TASK:
       const arr = [...state];
-      action.payload.forEach( (task) => arr.push({ _id: task._id,title: task.title, status: task.status}) );
+      action.payload.forEach( (task) => arr.push({ _id: task._id,title: task.title, status: task.status, description: task.description}) );
       return arr;
 
     case ADD_ONETASK:
-      const {_id, title, status} = action.payload;
+      const {_id, title, status, description} = action.payload;
       return [...state, 
-        {_id, title, status }];
-    // return [...state,
-    //         { 
-    //             id: getId(),
-    //             title: action.title,
-    //             status: false,
-    //             editFlg: false,
-    //           }
-    //       ];
+        {_id, title, status, description }];
 
     case FAILED_ONETASK:
       return [ ...state, 
@@ -59,6 +44,7 @@ export default (state=[], action) => {  // reducer
               return {
                 ...task,
                 title: action.title,
+                description: action.description,
                 editFlg: !task.editFlg,
               }
             } 

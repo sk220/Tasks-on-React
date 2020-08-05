@@ -4,7 +4,7 @@ import { saveDispatchTask, failedOneTask } from './actions/tasks';
 
 
 //async func fetch
-async function fetchSave(id, title) {
+async function fetchSave(id, title, description) {
       const response  = await fetch (`/api/task/edit/${id}`, {
         method: 'PATCH',
         headers: {
@@ -12,6 +12,7 @@ async function fetchSave(id, title) {
         },
         body: JSON.stringify({
           newTitle: `${title}`,
+          newDescription: `${description}`,
         })
       });
       return response.json();
@@ -20,9 +21,9 @@ async function fetchSave(id, title) {
 //worker 
 function* workerSaveTask(action) {
   try {
-    const taskToSave = yield call(fetchSave, action.id, action.title);
+    const taskToSave = yield call(fetchSave, action.id, action.title, action.description);
     console.log(taskToSave);
-    yield put(saveDispatchTask(action.id, action.title));
+    yield put(saveDispatchTask(action.id, action.title, action.description));
   }
   catch(err) {
     console.log("error!: ", err);
@@ -31,7 +32,7 @@ function* workerSaveTask(action) {
 }
 
 
-// watcher 
+//watcher 
 export default function* watcher(action) {
   yield takeEvery(CALL_SAVE_TASK, workerSaveTask);
 }
