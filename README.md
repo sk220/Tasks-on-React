@@ -29,15 +29,15 @@ You will also see any lint errors in the console.
 
 ## Now you ready!
 
-### Add new Tasks%
+### Add new Tasks:
 
-<img src="https://media.giphy.com/media/fVJVvE0p6o04crGHyS/giphy.gif" width="480" height="272" />
+<img src="https://thumbs.gfycat.com/ClutteredBetterArabianoryx-size_restricted.gif" width="640" height="362" />
 
 ### Edit created Tasks:
 
-<img src="https://media.giphy.com/media/Wqd4JUeEAAeIN8rsMN/giphy.gif" width="480" height="272" />
+<img src="https://thumbs.gfycat.com/LavishLeanFiddlercrab-size_restricted.gif" width="640" height="362" />
 
 ### Finish some tasks? Ok! Mark them as "done" or just delete:
 
-<img src="https://media.giphy.com/media/ejCfAYit7HwihEHmqJ/giphy.gif" width="480" height="272" />
+<img src="https://thumbs.gfycat.com/DizzyOblongDog-size_restricted.gif" width="640" height="362" />
 
