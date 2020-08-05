@@ -1,3 +1,8 @@
+# Tasks-React
+Simple Task Manager made on React using Redux, Redux-Thunk and Redux-Saga
+
+
+
 ## Getting started
 
 From project directory go to server directory, install all dependencies and run server:
