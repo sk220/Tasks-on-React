@@ -1,9 +1,10 @@
 ## Getting started
 
-From project directory go to server directory and run server:
+From project directory go to server directory, install all dependencies and run server:
 
 ```
 cd ./server
+yarn
 yarn start
 ```
 
@@ -11,6 +12,7 @@ From project directory go to client directory and run app:
 
 ```
 cd ./client
+yarn
 yarn start
 ```
 
