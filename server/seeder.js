@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/tasks', {
 
 const TaskSchema = new mongoose.Schema({
   title: { type: String },
-  status: { type: Boolean },
+  status: { type: String },
 });
 
 
@@ -19,13 +19,13 @@ async function seeder() {
   
   const task1 = new Task({
     title: "Learn React",
-    status: false,
+    status: "open",
   });
   await task1.save();
 
   const task2 = new Task({
     title: "Drink Coffee",
-    status: false,
+    status: "open",
   });
   await task2.save();
 }
